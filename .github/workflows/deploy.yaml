@@ -37,5 +37,6 @@ jobs:
             docker pull warunakith/mint-test-image:latest
             docker stop mint-test || true
             docker rm mint-test || true
-            docker run -d --name mint-test --network my_network -p 8000:8000 warunakith/mint-test-image:latest
+            docker run -d --name mint-test --network my_network --log-driver=json-file --log-opt tag="mintapp" -p 8000:8000 warunakith/mint-test-image:latest
+            
 
