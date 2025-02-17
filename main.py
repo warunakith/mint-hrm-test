@@ -10,12 +10,13 @@ MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "mintdb")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "mint-test-123")
 
-
 def get_customer_list():
     """
     Connects to a MySQL database using pymysql, retrieves a list of customers,
     and returns it as a list of dictionaries.
     """
+    connection = None  # Initialize connection variable
+
     try:
         connection = pymysql.connect(
             host=MYSQL_HOST,
@@ -36,9 +37,10 @@ def get_customer_list():
         return None  # Or raise the exception
 
     finally:
-        if connection:
+        if connection is not None:  # Ensure connection exists before closing
             connection.close()
             print("MySQL connection is closed")
+
 
 
 @app.route('/customers', methods=['GET'])
