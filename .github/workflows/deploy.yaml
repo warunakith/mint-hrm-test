@@ -37,4 +37,4 @@ jobs:
             docker pull warunakith/mint-test-image:latest
             docker stop mint-test || true
             docker rm mint-test || true
-            docker run -d --name mint-test -p 8000:8000 pull warunakith/mint-test-image:latest
+            docker run -d --name mint-test -p 8000:8000 warunakith/mint-test-image:latest
