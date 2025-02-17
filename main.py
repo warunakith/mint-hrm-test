@@ -4,13 +4,14 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+# Get database credentials from environment variables (for Docker compatibility)
+MYSQL_HOST = os.getenv("MYSQL_HOST", "mysqlCon")  # Use the container name as the hostname
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "mintdb")
+MYSQL_USER = os.getenv("MYSQL_USER", "root")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "mint-test-123")
+
 
 def get_customer_list():
-    MYSQL_HOST = "localhost"
-    MYSQL_DATABASE = "mintdb"
-    MYSQL_USER = "root"
-    MYSQL_PASSWORD = "mint-test-123"
-
     """
     Connects to a MySQL database using pymysql, retrieves a list of customers,
     and returns it as a list of dictionaries.
@@ -31,7 +32,7 @@ def get_customer_list():
         return customers
 
     except pymysql.MySQLError as e:
-        print("Error while connecting to MySQL", e)
+        print("Error while connecting to MySQL:", e)
         return None  # Or raise the exception
 
     finally:
@@ -54,4 +55,3 @@ def list_customers():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 8000)))
-
