@@ -26,3 +26,15 @@ jobs:
           context: .
           push: true
           tags: warunakith/mint-test-image:latest  # Change to your image name
+
+      - name: Deploy via SSH (Password Auth)
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            docker pull warunakith/mint-test-image:latest
+            docker stop mint-test || true
+            docker rm mint-test || true
+            docker run -d --name mint-test -p 8000:8000 pull warunakith/mint-test-image:latest
