@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: warunakith/mint-test/mint-test-image:latest  # Change to your image name
+          tags: warunakith/mint-test-image:latest  # Change to your image name
